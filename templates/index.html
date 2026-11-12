@@ -3,1078 +3,692 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Z×ice lanz dulll — Keygen & Bypass</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>Z×ice lanz dulll - Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F4F4F0;
-    --black: #000000;
-    --white: #FFFFFF;
-    --yellow: #FFDE00;
-    --cyan: #00F0FF;
-    --pink: #FF007F;
-    --green: #00FF66;
-    --orange: #FF7A00;
-    --border: 3px solid #000;
-    --shadow: 4px 4px 0px #000;
-    --shadow-sm: 2px 2px 0px #000;
+    --bg: #F4F4F0; --black: #000000; --white: #FFFFFF;
+    --yellow: #FFDE00; --cyan: #00F0FF; --pink: #FF007F; --green: #00FF66;
+    --border: 3px solid #000; --shadow: 4px 4px 0px #000; --shadow-sm: 2px 2px 0px #000;
+    --dock-radius: 20px; --text-color: #000000;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; -webkit-tap-highlight-color: transparent; }
-
-  body {
-    background-color: var(--bg);
-    background-image:
-      linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
-    background-size: 22px 22px;
-    color: var(--black);
-    display: flex; justify-content: center;
-    min-height: 100vh; padding: 20px 20px 110px 20px;
-    overflow-x: hidden;
+  body.glass-mode {
+    --bg: #1a1a2e; --black: #ffffff; --white: rgba(255, 255, 255, 0.15); --text-color: #ffffff;
+    --border: 1px solid rgba(255, 255, 255, 0.3); --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); --shadow-sm: 0 4px 15px 0 rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important; background-color: #0f0c29;
   }
-
-  .container { width: 100%; max-width: 460px; display: flex; flex-direction: column; gap: 20px; }
-
-  /* --- LOGIN SCREEN --- */
-  .login-overlay {
-    position: fixed; inset: 0; z-index: 99999;
-    background-color: var(--bg);
-    background-image: linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
-    background-size: 22px 22px;
-    display: flex; justify-content: center; align-items: center; padding: 20px;
-    transition: opacity 0.3s ease;
+  body.glass-mode .profile-header, body.glass-mode .dashboard-dock, body.glass-mode .tool-btn, body.glass-mode .bottom-nav, body.glass-mode .lore-box, body.glass-mode .chat-container, body.glass-mode .chat-input-area, body.glass-mode .app-header {
+    backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.1) !important; color: #fff !important; border-radius: 20px;
   }
-  .login-overlay.hidden { opacity: 0; pointer-events: none; }
+  body.glass-mode .chat-bubble { background: rgba(0, 240, 255, 0.3); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+  body.glass-mode .chat-bubble.mine { background: rgba(0, 255, 102, 0.3); }
+  body.glass-mode .chat-input { background: rgba(0,0,0,0.3); color: #fff; }
+  body.glass-mode .input-box { background: rgba(0,0,0,0.3); color: #fff; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; -webkit-tap-highlight-color: transparent; transition: background-color 0.3s, color 0.3s, border 0.3s; }
+  body { background-color: var(--bg); background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 20px 20px; color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+
+  /* LOGIN / REGISTER SCREEN */
+  #authScreen { position: fixed; inset: 0; z-index: 99998; background-color: var(--white); background-image: linear-gradient(var(--black) 1px, transparent 1px), linear-gradient(90deg, var(--black) 1px, transparent 1px); background-size: 20px 20px; display: flex; justify-content: center; align-items: center; padding: 20px; }
+  .auth-box { background: var(--white); border: var(--border); box-shadow: var(--shadow); padding: 30px; text-align: center; max-width: 400px; width: 100%; transform: rotate(-1deg); border-radius: 12px; }
   
-  .login-panel {
-    width: 100%; max-width: 400px; background: var(--white);
-    border: var(--border); box-shadow: var(--shadow); padding: 25px;
-    transform: rotate(1deg); display: flex; flex-direction: column; gap: 15px;
-  }
-  .login-title {
-    font-size: 22px; font-weight: 700; text-transform: uppercase; text-align: center;
-    border-bottom: 3px dashed var(--black); padding-bottom: 15px; margin-bottom: 5px;
-    color: var(--black);
-  }
-
-  /* HEADER */
-  .header {
-    background: var(--yellow); border: var(--border); box-shadow: var(--shadow);
-    padding: 15px; text-align: center; transform: rotate(-1.2deg);
-    position: relative; margin-bottom: 5px;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .header::before {
-    content: ""; position: absolute; inset: 0;
-    background: repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 8px, transparent 8px 16px);
-    pointer-events: none;
-  }
-  .header h1 { font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #000; position: relative; }
-  .header p {
-    font-size: 11px; font-weight: 700; background: var(--black); color: var(--white);
-    display: inline-block; padding: 3px 10px; margin-top: 6px; letter-spacing: 1px;
-    position: relative;
+  .web-title { 
+    font-family: 'Playfair Display', serif; font-style: italic; font-size: 30px; 
+    color: var(--pink); margin-bottom: 25px; text-shadow: 2px 2px 0 #000; 
+    border-bottom: 3px dashed var(--black); padding-bottom: 15px; 
+    cursor: pointer; user-select: none;
   }
   
-  /* HEADER TOP RIGHT (Logout & Versi) */
-  .header-top-right {
-    position: absolute; top: 6px; right: 8px;
-    display: flex; gap: 5px; align-items: center; z-index: 10;
-  }
-  .btn-logout {
-    background: var(--black); color: var(--white); border: 2px solid #000;
-    font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
-    padding: 2px 6px; cursor: pointer; border-radius: 2px;
-    text-transform: uppercase; transition: 0.1s;
-  }
-  .btn-logout:active { transform: scale(0.95); }
-  .header .tag {
-    font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
-    background: var(--pink); color: #fff; padding: 2px 6px; border: 2px solid #000;
-    transform: rotate(6deg);
-  }
+  .auth-box h1 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 24px; text-transform: uppercase; margin-bottom: 20px; color: var(--black); }
+  .auth-box input { width: 100%; padding: 12px; border: var(--border); margin-bottom: 15px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; outline: none; color: var(--black); background: var(--bg); border-radius: 8px;}
+  .auth-box input:focus { background: var(--yellow); }
+  .auth-box button { width: 100%; padding: 15px; background: var(--pink); color: #FFF; border: var(--border); box-shadow: var(--shadow); font-size: 16px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.1s; border-radius: 8px;}
+  .auth-box button:active { transform: translate(4px, 4px); box-shadow: none; }
+  .auth-toggle { margin-top: 15px; font-size: 12px; font-weight: 700; color: var(--pink); cursor: pointer; text-decoration: underline; }
 
-  /* HAMBURGER */
-  .hamburger {
-    position: absolute; left: 15px;
-    background: #FFF; border: 2.5px solid #000; border-radius: 8px;
-    width: 35px; height: 35px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px;
-    cursor: pointer; box-shadow: 2px 2px 0px #000; transition: 0.1s; z-index: 10;
-  }
-  .hamburger:active { transform: translate(2px, 2px); box-shadow: none; }
-  .hamburger span { display: block; width: 18px; height: 3px; background: #000; border-radius: 2px; }
+  /* APP CONTAINER */
+  #appMain { display: none; flex-direction: column; padding: 20px 20px 100px 20px; z-index: 10; max-width: 600px; margin: 0 auto; width: 100%; }
+  #appMain.show { display: flex; }
 
-  /* SIDE MENU */
-  .side-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 998; display: none; opacity: 0; transition: 0.3s; }
-  .side-overlay.active { display: block; opacity: 1; }
-  .side-menu {
-    position: fixed; top: 0; left: -320px; width: 270px; height: 100vh;
-    background: var(--bg); border-right: var(--border);
-    z-index: 999; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    padding: 20px; display: flex; flex-direction: column; gap: 10px;
-    background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
-    background-size: 18px 18px;
-    overflow-y: auto;
-  }
-  .side-menu.active { left: 0; }
-  
-  .side-title {
-    font-size: 18px; font-weight: 700; text-transform: uppercase;
-    border-bottom: 3px dashed var(--black); padding-bottom: 10px; margin-bottom: 6px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .side-title small { font-size: 9px; color: #666; font-family: 'JetBrains Mono', monospace; }
-  .close-x {
-    background: var(--pink); color: #fff; border: 2px solid #000; box-shadow: 2px 2px 0 #000;
-    width: 24px; height: 24px; font-weight: bold; font-size: 14px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .close-x:active { transform: translate(2px, 2px); box-shadow: none; }
+  .page { display: none; flex-direction: column; gap: 15px; animation: fadeIn 0.3s ease; }
+  .page.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  .side-group-title {
-    font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #666;
-    text-transform: uppercase; margin-top: 10px; margin-bottom: 2px; font-weight: 700;
-  }
+  .profile-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; background: var(--white); border: var(--border); box-shadow: var(--shadow-sm); padding: 15px; border-radius: 12px; transform: rotate(-2deg); }
+  .profile-logo { width: 60px; height: 60px; background: var(--pink); border: var(--border); box-shadow: var(--shadow-sm); display: flex; justify-content: center; align-items: center; border-radius: 50%; font-family: 'Playfair Display', serif; font-style: italic; font-size: 32px; font-weight: 700; color: #fff; transform: rotate(-5deg); }
+  .profile-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 24px; font-weight: 700; color: var(--black); }
 
-  .side-btn {
-    background: var(--white); border: var(--border); box-shadow: var(--shadow-sm);
-    padding: 12px; font-weight: 700; font-size: 13px; text-transform: uppercase;
-    cursor: pointer; transition: 0.1s; display: flex; align-items: center; gap: 10px; color: var(--black);
-    text-align: left;
-  }
-  .side-btn:active { transform: translate(2px, 2px); box-shadow: none; }
-  .side-btn.active { background: var(--cyan); }
-  .side-btn .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); border: 2px solid #000; flex-shrink: 0; }
-  .side-foot { margin-top: auto; font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #666; line-height: 1.6; padding-top: 20px;}
+  .video-banner { width: 100%; aspect-ratio: 21 / 9; background: var(--black); border: var(--border); box-shadow: var(--shadow-sm); overflow: hidden; position: relative; border-radius: 12px; margin-bottom: 15px;}
+  .video-banner video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
-  /* PAGES */
-  .main-page { display: none; flex-direction: column; gap: 15px; width: 100%; }
-  .main-page.active { display: flex; animation: slideUp 0.3s ease; }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .dashboard-dock { background: var(--cyan); border: var(--border); box-shadow: var(--shadow-sm); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #000; border-radius: var(--dock-radius); margin-bottom: 20px; }
 
-  .panel { display: flex; background: var(--white); border: var(--border); box-shadow: var(--shadow); padding: 20px; flex-direction: column; gap: 15px; position: relative; }
-  
-  /* TOMBOL X DI SETIAP HALAMAN FITUR */
-  .close-page-btn {
-    position: absolute; top: 12px; right: 12px;
-    background: var(--pink); color: #fff; border: 2px solid #000;
-    width: 30px; height: 30px; border-radius: 4px;
-    font-weight: bold; font-size: 20px; display: flex;
-    align-items: center; justify-content: center; line-height: 1;
-    cursor: pointer; box-shadow: 2px 2px 0 #000; transition: 0.1s;
-    z-index: 20;
-  }
-  .close-page-btn:active { transform: translate(2px, 2px); box-shadow: none; }
+  .tools-dock { display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px; margin-bottom: 10px; }
+  .tools-dock::-webkit-scrollbar { display: none; }
+  .tool-btn { flex-shrink: 0; background: var(--white); border: var(--border); box-shadow: var(--shadow-sm); padding: 20px 15px; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.1s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-width: 110px; color: var(--black); border-radius: 16px; }
+  .tool-btn .icon { font-size: 28px; }
+  .tool-btn:active { transform: translate(2px, 2px); box-shadow: none; }
+  .tool-btn.apiserver { background: var(--cyan); color: #000; } 
+  .tool-btn.dana { background: var(--yellow); color: #000; } 
+  .tool-btn.tiktok { background: var(--green); color: #000; } 
+  .tool-btn.htmlweb { background: var(--pink); color: #fff; } 
+  .tool-btn.webcode { background: var(--white); }
+  .tool-btn.validapi { background: var(--cyan); color: #000; }
+  .tool-btn.chat { background: var(--green); color: #000; }
+  .tool-btn.admin { background: red; color: #fff; }
 
-  .panel-title { font-size: 17px; font-weight: 700; border-bottom: 3px dashed var(--black); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; color: var(--black); text-transform: uppercase; padding-right: 40px; }
-  .panel-title .badge { font-size: 9px; font-family: 'JetBrains Mono', monospace; background: var(--black); color: #fff; padding: 2px 6px; border-radius: 0; margin-left: auto; }
-  .panel-desc { font-size: 12px; font-weight: 500; color: #555; line-height: 1.5; }
+  .lore-box { margin-top: 15px; padding: 20px; background: var(--white); border: var(--border); box-shadow: var(--shadow-sm); border-radius: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; line-height: 1.8; color: var(--black); text-align: justify; }
+  .lore-box h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; margin-bottom: 15px; text-align: center; border-bottom: 2px dashed var(--black); padding-bottom: 10px; }
+  .lore-box .highlight { font-weight: 700; color: var(--pink); }
 
-  .input-group { display: flex; flex-direction: column; gap: 5px; }
-  .input-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--black); letter-spacing: 0.5px;}
-  .input-brutal {
-    width: 100%; padding: 12px; border: var(--border); background: var(--bg); color: var(--black);
-    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; outline: none; transition: 0.2s;
-    scroll-margin-bottom: 120px;
-  }
-  .input-brutal:focus { background: var(--yellow); color: #000; box-shadow: var(--shadow-sm); transform: translate(-2px, -2px); }
+  .btn-back { background: var(--pink); color: #fff; border: var(--border); box-shadow: var(--shadow-sm); padding: 8px 15px; font-weight: 800; cursor: pointer; align-self: flex-start; margin-bottom: 10px; text-transform: uppercase; font-size: 12px; border-radius: 8px; }
+  .btn-back:active { transform: translate(2px, 2px); box-shadow: none; }
 
-  .btn-action {
-    width: 100%; padding: 15px; border: var(--border); background: var(--pink); color: #FFF;
-    box-shadow: var(--shadow); font-size: 15px; font-weight: 700; text-transform: uppercase;
-    cursor: pointer; transition: 0.1s; letter-spacing: 0.5px;
-  }
-  .btn-action:active { transform: translate(4px, 4px); box-shadow: none; }
-  .btn-action:disabled { opacity: 0.6; cursor: wait; }
-  .btn-green { background: var(--green); color: #000; }
-  .btn-cyan { background: var(--cyan); color: #000; }
-  .btn-orange { background: var(--orange); color: #000; }
+  .input-group { margin-bottom: 15px; }
+  .input-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; color: var(--text-color); }
+  .input-box { width: 100%; padding: 14px; border: var(--border); background: var(--white); color: var(--black); font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; outline: none; border-radius: 10px; }
+  .input-box:focus { background: var(--yellow); }
+  textarea.input-box { resize: vertical; min-height: 100px; font-size: 12px; }
+  .btn-exec { width: 100%; padding: 15px; border: var(--border); font-size: 14px; font-weight: 700; text-transform: uppercase; cursor: pointer; box-shadow: var(--shadow); transition: 0.1s; color: #000; display: flex; justify-content: center; align-items: center; gap: 8px; border-radius: 10px;}
+  .btn-exec:active { transform: translate(4px, 4px); box-shadow: none; }
 
-  /* KOTAK OUTPUT (Diubah jadi Putih biar kebaca) */
-  .output-box {
-    display: none; background: var(--white); color: var(--black);
-    border: var(--border); padding: 15px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    max-height: 400px;
-    overflow-y: auto; word-break: break-all; white-space: pre-wrap;
-    box-shadow: var(--shadow-sm);
-  }
-  .output-box.show { display: block; animation: slideUp 0.3s ease; }
+  .result { margin-top: 15px; padding: 15px; background: var(--white); border: var(--border); box-shadow: var(--shadow-sm); font-family: 'JetBrains Mono', monospace; font-size: 12px; display: none; font-weight: 700; color: var(--black); border-radius: 10px; }
+  .result.show { display: block; }
+  .loading { text-align: center; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 12px; display: none; background: var(--black); color: var(--white); padding: 10px; border: var(--border); margin-top: 15px; border-radius: 10px; }
+  .loading.show { display: block; }
+  .code-output { display: none; margin-top: 15px; padding: 15px; background: var(--white); border: var(--border); box-shadow: var(--shadow-sm); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--black); height: 250px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; border-radius: 10px; }
+  .code-output.show { display: block; }
 
-  .log-text {
-    font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #666;
-    margin-top: 5px; display: none; line-height: 1.6;
-    background: #f0f0e8; border-left: 3px solid var(--black); padding: 8px 10px;
-  }
-  .log-text.show { display: block; }
+  .chat-container { display: flex; flex-direction: column; background: var(--white); border: var(--border); box-shadow: var(--shadow-sm); border-radius: 12px; height: 400px; overflow: hidden; }
+  .chat-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: var(--bg); }
+  .chat-bubble { background: var(--cyan); border: 2px solid #000; padding: 10px; border-radius: 8px; max-width: 85%; align-self: flex-start; color: #000; font-size: 13px; box-shadow: 2px 2px 0 #000; }
+  .chat-bubble.mine { background: var(--green); align-self: flex-end; }
+  .chat-bubble.admin { border: 2px solid red; background: #ffcccc; }
+  .chat-sender { font-size: 10px; font-weight: 800; margin-bottom: 2px; text-transform: uppercase; display: flex; gap: 5px; align-items: center; }
+  .badge-admin { background: red; color: #fff; padding: 2px 5px; border-radius: 4px; font-size: 8px; }
+  .chat-input-area { display: flex; gap: 10px; padding: 10px; background: var(--white); border-top: var(--border); }
+  .chat-input { flex: 1; padding: 10px; border: var(--border); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; outline: none; }
 
-  /* RESULT CARD (KEYGEN) */
-  .result-card {
-    display: none;
-    border: var(--border); padding: 16px; text-align: center;
-    box-shadow: var(--shadow); flex-direction: column; gap: 8px;
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  .result-card.show { display: flex; }
-  @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-  .result-tier { font-size: 10px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 2px; color: rgba(0,0,0,0.6); }
-  .result-label { font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-  .result-score { font-size: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-  .result-key {
-    font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700;
-    background: #000; color: var(--green); padding: 12px; border: 2px solid #000;
-    word-break: break-all; margin-top: 4px;
-  }
+  #userListModal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; justify-content: center; align-items: center; }
+  .user-list-box { background: var(--white); border: var(--border); padding: 20px; border-radius: 12px; width: 90%; max-width: 300px; max-height: 80vh; overflow-y: auto; }
+  .user-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 2px dashed #ccc; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; color: var(--black); }
 
-  /* LOADING STATE */
-  .loading-box {
-    display: none; background: var(--cyan); border: var(--border); box-shadow: var(--shadow);
-    padding: 20px; text-align: center; font-family: 'JetBrains Mono', monospace;
-    font-weight: 700; font-size: 16px; color: #000; text-transform: uppercase;
-    letter-spacing: 2px; flex-direction: column; gap: 10px; justify-content: center; align-items: center;
-    animation: popIn 0.3s ease;
-  }
-  .loading-box.show { display: flex; }
-  .spinner {
-    width: 24px; height: 24px; border: 3px solid #000; border-top-color: transparent;
-    border-radius: 50%; animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
+  .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 999999; display: none; justify-content: center; align-items: center; padding: 20px; }
+  .popup-overlay.active { display: flex; animation: popIn 0.2s ease; }
+  .popup-box { background: var(--white); border: 4px solid #000; box-shadow: 8px 8px 0px #000; padding: 25px; max-width: 350px; width: 100%; text-align: center; transform: rotate(1deg); border-radius: 15px;}
+  .popup-title { font-size: 20px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; color: var(--black); }
+  .popup-msg { font-size: 14px; font-weight: 500; margin-bottom: 20px; line-height: 1.4; color: var(--black); }
+  .popup-btn { width: 100%; padding: 12px; background: var(--cyan); border: var(--border); box-shadow: var(--shadow-sm); font-weight: 800; text-transform: uppercase; cursor: pointer; font-size: 14px; color: #000; border-radius: 8px;}
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
 
-  /* DASHBOARD GADGET INFO */
-  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .dash-card {
-    background: var(--bg); border: 2.5px solid #000; padding: 12px; box-shadow: var(--shadow-sm);
-    display: flex; flex-direction: column; gap: 5px;
-  }
-  .dash-card.full { grid-column: span 2; }
-  .dash-label { font-size: 9px; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-  .dash-value { font-size: 16px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: #000; word-break: break-word; }
-  .dash-value.small { font-size: 13px; }
-  .dash-card.cyan { background: var(--cyan); }
-  .dash-card.yellow { background: var(--yellow); }
-  .dash-card.pink { background: var(--pink); color: #fff; }
-  .dash-card.pink .dash-label, .dash-card.pink .dash-value { color: #fff; }
-  .dash-card.green { background: var(--green); }
+  .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 400px; background: var(--white); border: var(--border); box-shadow: var(--shadow); border-radius: 25px; display: flex; justify-content: space-around; padding: 10px 10px; z-index: 1000; }
+  .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--black); cursor: pointer; opacity: 0.5; transition: 0.2s; }
+  .nav-item.active { opacity: 1; transform: scale(1.05); }
+  .nav-icon { font-size: 20px; }
+  .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border: 2px solid #000; border-radius: 34px; }
+  .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border: 1px solid #000; border-radius: 50%; }
+  input:checked + .slider { background-color: var(--green); }
+  input:checked + .slider:before { transform: translateX(24px); }
 
-  /* FITUR TAMBAHAN DI MENU */
-  .menu-tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px; }
-  .menu-tool-btn {
-    background: var(--white); border: 2.5px solid #000; box-shadow: var(--shadow-sm);
-    padding: 15px 10px; font-weight: 700; font-size: 12px; text-transform: uppercase;
-    cursor: pointer; transition: 0.1s; text-align: center;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  }
-  .menu-tool-btn:active { transform: translate(2px, 2px); box-shadow: none; }
-  .menu-tool-btn .icon { font-size: 24px; }
-  .menu-tool-btn.web2code { background: var(--yellow); }
-  .menu-tool-btn.html2web { background: var(--pink); color: #fff; }
-  .menu-tool-btn.subs { background: var(--cyan); }
-
-  /* PHONE MOCKUP UNTUK HTML TO WEB */
-  .phone-frame {
-    width: 100%; max-width: 320px; height: 480px;
-    background: #000; border-radius: 35px; border: 4px solid #000;
-    margin: 15px auto; position: relative; box-shadow: 8px 8px 0 rgba(0,0,0,0.15);
-    padding: 10px;
-  }
-  .phone-notch {
-    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-    width: 110px; height: 22px; background: #000;
-    border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; z-index: 10;
-  }
-  .phone-screen {
-    width: 100%; height: 100%; border: none; border-radius: 25px;
-    background: #fff; display: block; overflow: hidden;
-  }
-
-  /* BOTTOM NAVIGATION (DOCK IPHONE STYLE) */
-  .bottom-nav {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-    width: calc(100% - 40px); max-width: 420px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border: var(--border); border-radius: 24px;
-    display: flex; justify-content: space-around; align-items: center;
-    padding: 8px 10px; z-index: 9999;
-    box-shadow: var(--shadow);
-    transition: bottom 0.3s ease;
-  }
-  .nav-item {
-    display: flex; flex-direction: column; align-items: center; gap: 2px;
-    background: none; border: none; font-size: 9px; font-weight: 700;
-    text-transform: uppercase; color: #666; cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
-    padding: 5px 15px;
-  }
-  .nav-item.active { color: var(--black); }
-  .nav-icon {
-    font-size: 20px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-    border: 2px solid transparent; border-radius: 10px; transition: 0.2s;
-  }
-  .nav-item.active .nav-icon {
-    background: var(--yellow); border: 2px solid #000; box-shadow: 2px 2px 0 #000;
-    transform: translate(-1px, -1px) scale(1.05);
-  }
-
-  /* TOAST */
-  .toast-notif {
-    position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
-    background: var(--green); color: #000; padding: 12px 24px; font-weight: 700; font-size: 14px;
-    border: 3px solid #000; border-radius: 12px; box-shadow: 4px 4px 0 #000;
-    opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 100000;
-    pointer-events: none; display: flex; align-items: center; gap: 8px; max-width: 90vw;
-  }
-  .toast-notif.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .toast-notif.error { background: var(--pink); color: #FFF; }
-
+  .admin-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .admin-table th, .admin-table td { border: 2px solid #000; padding: 8px; text-align: left; color: var(--text-color); }
+  .admin-table th { background: var(--cyan); color: #000; }
 </style>
 </head>
 <body>
 
-<!-- ================= LOGIN SCREEN ================= -->
-<div class="login-overlay" id="loginScreen">
-  <div class="login-panel">
-    <div class="login-title">Z×ice lanz dulll</div>
-    <div class="panel-desc" style="text-align: center; margin-bottom: 10px;">Silakan login untuk mengakses tools.</div>
+<!-- AUDIO BACKGROUND (PRELOAD AUTO BIAR CEPET SIAP) -->
+<audio id="bgAudio" loop preload="auto">
+  <source src="https://files.catbox.moe/5iyhyu.mp4" type="audio/mp4">
+</audio>
+
+<!-- AUTH SCREEN (LOGIN / REGISTER) -->
+<div id="authScreen">
+  <div class="auth-box">
+    <div class="web-title" onclick="loginAsAdmin()">Z×ice lanz dulll</div>
     
-    <div class="input-group">
-      <label>Username</label>
-      <input type="text" id="loginUser" class="input-brutal" placeholder="Masukkan username..." autocapitalize="none">
-    </div>
-    
-    <div class="input-group">
-      <label>Password</label>
-      <input type="password" id="loginPass" class="input-brutal" placeholder="Masukkan password...">
-    </div>
-    
-    <button class="btn-action btn-cyan" onclick="doLogin()" style="margin-top: 10px;">🔐 Masuk</button>
+    <h1 id="authTitle">Login</h1>
+    <input type="text" id="authUser" placeholder="Username">
+    <input type="password" id="authPass" placeholder="Password">
+    <button id="authBtn" onclick="handleAuth()">LOGIN</button>
+    <div class="auth-toggle" id="authToggle" onclick="toggleAuthMode()">Belum punya akun? Daftar</div>
   </div>
 </div>
-<!-- =============================================== -->
 
-<div class="side-overlay" id="sideOverlay" onclick="toggleSideMenu()"></div>
-
-<!-- SIDEBAR -->
-<div class="side-menu" id="sideMenu">
-  <div class="side-title">
-    MENU <small>v6.0</small>
-    <button class="close-x" onclick="toggleSideMenu()">×</button>
-  </div>
+<div id="appMain">
   
-  <div class="side-group-title">Main Tools</div>
-  <button class="side-btn active" data-tool="menu" onclick="openTool('menu')">
-    <span class="dot"></span> 📁 Menu
-  </button>
-  <button class="side-btn" data-tool="keygen" onclick="openTool('keygen')">
-    <span class="dot"></span> 🔑 Generate Key
-  </button>
-  <button class="side-btn" data-tool="valid" onclick="openTool('valid')">
-    <span class="dot"></span> ✅ Tes Valid Key
-  </button>
-  
-  <div class="side-group-title">Bypass Tools</div>
-  <button class="side-btn" data-tool="sfl" onclick="openTool('sfl')">
-    <span class="dot" style="background:var(--orange)"></span> 🔗 SFL → MediaFire
-  </button>
-  <button class="side-btn" data-tool="subs" onclick="openTool('subs')">
-    <span class="dot" style="background:var(--cyan)"></span> 🔓 Subs2Unlock
-  </button>
-
-  <div class="side-foot">
-    Z×ice lanz dulll.<br>
-    <span style="color:var(--pink)">Public tools & bypass.</span>
-  </div>
-</div>
-
-<div class="container">
-
-  <div class="header">
-    <div class="hamburger" onclick="toggleSideMenu()">
-      <span></span><span></span><span></span>
-    </div>
-    <div>
-      <h1>Z×ice lanz dulll</h1>
-      <p>KEYGEN & BYPASS GATEWAY</p>
-    </div>
-    
-    <!-- Tombol Logout & Versi di Kanan Atas -->
-    <div class="header-top-right">
-      <button class="btn-logout" onclick="doLogout()">Keluar</button>
-      <div class="tag">v6.0</div>
+  <div class="page active" id="page-menu">
+    <div class="profile-header">
+      <div class="profile-logo">Z</div>
+      <div class="profile-name" id="siteName">Z×ice lanz dulll</div>
     </div>
 
-  </div>
+    <div class="video-banner">
+      <video autoplay loop muted playsinline>
+        <source src="https://files.catbox.moe/fn5pa8.mp4" type="video/mp4">
+      </video>
+    </div>
 
-  <!-- HALAMAN: MENU (DASHBOARD) -->
-  <div class="main-page active" id="page-menu">
-    <div class="panel">
-      <div class="panel-title">📁 Dashboard <span class="badge">INFO</span></div>
-      
-      <div style="background: var(--cyan); border: 2.5px solid #000; padding: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; text-align: center; box-shadow: var(--shadow-sm); margin-bottom: 5px;">
-        🚀 FITUR UPDATE 6.0
-      </div>
+    <div class="dashboard-dock">
+      <span>⏰ <span id="liveClock">--:--:--</span></span>
+      <span>🌐 <span id="ipAddress">Loading...</span></span>
+      <span>📱 <span id="deviceName">Cek...</span></span>
+    </div>
 
-      <div class="dash-grid">
-        <div class="dash-card cyan full">
-          <div class="dash-label">Waktu Sekarang</div>
-          <div class="dash-value" id="dashTime">Memuat...</div>
-        </div>
-        
-        <div class="dash-card yellow">
-          <div class="dash-label">Baterai HP</div>
-          <div class="dash-value" id="dashBattery">Cek...</div>
-        </div>
-        
-        <div class="dash-card pink">
-          <div class="dash-label">IP Address</div>
-          <div class="dash-value small" id="dashIP">Cek...</div>
-        </div>
+    <div class="tools-dock">
+      <button class="tool-btn chat" onclick="showPage('page-chat')"><span class="icon">💬</span> Grup Chat</button>
+      <button class="tool-btn apiserver" onclick="showPage('page-apiserver')"><span class="icon">⚙️</span> API Server</button>
+      <button class="tool-btn validapi" onclick="showPage('page-validapi')"><span class="icon">🔍</span> Tes API</button>
+      <button class="tool-btn dana" onclick="showPage('page-dana')"><span class="icon">💰</span> DANA</button>
+      <button class="tool-btn tiktok" onclick="showPage('page-tiktok')"><span class="icon">🎵</span> TikTok</button>
+      <button class="tool-btn htmlweb" onclick="showPage('page-htmlweb')"><span class="icon">💻</span> HTML to Web</button>
+      <button class="tool-btn webcode" onclick="showPage('page-webcode')"><span class="icon">🔗</span> Web Code</button>
+      <button class="tool-btn admin" id="btnAdminPage" onclick="showPage('page-admin')" style="display: none;"><span class="icon">🛡️</span> Admin Panel</button>
+    </div>
 
-        <div class="dash-card green full">
-          <div class="dash-label">Nama HP / Perangkat</div>
-          <div class="dash-value" id="dashDevice">Memuat...</div>
-        </div>
-      </div>
-
-      <!-- FITUR TAMBAHAN DI MENU -->
-      <div class="dash-label" style="margin-top: 15px; margin-bottom: -5px;">Extra Tools</div>
-      <div class="menu-tools-grid">
-        <button class="menu-tool-btn web2code" onclick="openTool('web2code')">
-          <span class="icon">🌐</span>
-          Web to Code
-        </button>
-        <button class="menu-tool-btn html2web" onclick="openTool('html2web')">
-          <span class="icon">💻</span>
-          HTML to Web
-        </button>
-      </div>
-
+    <div class="lore-box">
+      <h2>The Genesis of Z×ice</h2>
+      <p>Di sebuah sudut sunyi dari dunia digital yang tak terjamah, lahirlah sebuah entitas yang dirancang bukan sekadar sebagai alat, melainkan sebagai perpanjangan tangan dari rasa ingin tahu yang tak terbatas. Namanya <span class="highlight">Z×ice lanz dulll</span>. Dibangun dari baris-baris kode dan dedikasi tanpa henti, ia diciptakan untuk menjadi sebuah pusat komando bagi mereka yang berani menembus batas.</p>
+      <p>Setiap fitur yang tertanam di dalamnya memiliki jiwa dan tujuannya masing-masing. <span class="highlight">API Server</span> hadir sebagai gerbang bagi para pengembang. <span class="highlight">HTML to Web</span> memungkinkan ide-ide mentah berubah menjadi mahakarya visual. Sementara fitur <span class="highlight">Web to Code</span> dan <span class="highlight">TikTok Scraper</span> adalah mata dan telinga, membedah struktur di balik layar untuk mengungkap kebenaran data yang tersembunyi.</p>
+      <p>Web ini adalah monumen digital yang akan terus menyala di tengah gelapnya malam, siap sedia mengeksekusi perintah kapan pun dipanggil.</p>
     </div>
   </div>
 
-  <!-- HALAMAN: WEB TO CODE -->
-  <div class="main-page" id="page-web2code">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">🌐 Web to Code <span class="badge">SCRAPER</span></div>
-      <div class="panel-desc">Ambil source code HTML dari sebuah URL website secara utuh tanpa batas.</div>
-
-      <div class="input-group">
-        <label>URL WEBSITE</label>
-        <input type="url" id="webUrl" class="input-brutal" placeholder="https://example.com">
-      </div>
-
-      <div style="display: flex; gap: 10px;">
-        <button class="btn-action" id="btnWeb2Code" onclick="fetchWebCode()" style="background: var(--yellow); color: #000; flex: 1;">🌐 Ambil Kode</button>
-        <button class="btn-action btn-green" id="btnCopyWeb" onclick="copyWebCode()" style="display: none; flex: 1;">📋 Copy Kode</button>
-      </div>
-
-      <div class="output-box" id="webCodeResult" style="height: 400px; font-family: 'JetBrains Mono', monospace; font-size: 11px; white-space: pre-wrap;"></div>
+  <div class="page" id="page-admin">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1 style="color: red;">Admin Panel</h1></div>
+    <h3 style="margin-bottom: 10px;">🕵️ Log Masuk Web</h3>
+    <div style="overflow-x: auto;">
+      <table class="admin-table" id="adminVisitTable">
+        <tr><th>User</th><th>IP</th><th>Device</th><th>Waktu</th></tr>
+      </table>
+    </div>
+    <h3 style="margin-top: 20px; margin-bottom: 10px;">💬 Log Chat Global</h3>
+    <div style="overflow-x: auto; max-height: 300px; overflow-y: auto;">
+      <table class="admin-table" id="adminChatTable">
+        <tr><th>Pengirim</th><th>Pesan</th></tr>
+      </table>
     </div>
   </div>
 
-  <!-- HALAMAN: HTML TO WEB -->
-  <div class="main-page" id="page-html2web">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">💻 HTML to Web <span class="badge">SANDBOX</span></div>
-      <div class="panel-desc">Tulis atau paste kode HTML/CSS/JS dan lihat hasilnya langsung di layar HP.</div>
-
-      <div class="input-group">
-        <label>KODE HTML</label>
-        <textarea id="htmlInput" class="input-brutal" style="height: 150px; resize: vertical; font-size: 11px;" placeholder="<h1>Hello World</h1>" spellcheck="false" autocapitalize="none"></textarea>
-      </div>
-
-      <button class="btn-action btn-pink" onclick="renderHtml()">💻 Render Web</button>
-
-      <div class="input-group" style="margin-top: 10px;">
-        <label style="text-align: center;">PREVIEW DI LAYAR HP</label>
-        
-        <!-- MOCKUP HP -->
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <iframe id="htmlPreview" class="phone-screen" src="about:blank"></iframe>
-        </div>
+  <div class="page" id="page-chat">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1>Grup Chat Global</h1></div>
+    <button class="btn-exec" style="background: var(--yellow); margin-bottom: 15px;" onclick="showUsers()">👥 Lihat Daftar User</button>
+    <div class="chat-container">
+      <div class="chat-box" id="chatBox"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendChat()">
+        <button class="btn-exec" style="width: auto; padding: 0 15px; background: var(--green);" onclick="sendChat()">➤</button>
       </div>
     </div>
   </div>
 
-  <!-- HALAMAN: KEYGEN -->
-  <div class="main-page" id="page-keygen">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">🔑 Generate Key <span class="badge">SERVER API</span></div>
-      <div class="panel-desc">Masukkan prefix nama. Key akan disimpan permanen di database server.</div>
-
-      <div class="input-group">
-        <label>PREFIX / NAMA KEY</label>
-        <input type="text" id="keyInput" class="input-brutal" placeholder="isi nama key..." maxlength="16">
-      </div>
-
-      <button class="btn-action btn-cyan" id="btnGenKey" onclick="generateKey()">🔑 Generate Key</button>
-
-      <div class="loading-box" id="keyLoading">
-        <div class="spinner"></div>
-        <span>BYPASSING...</span>
-      </div>
-
-      <div class="result-card" id="keyResult">
-        <div class="result-tier" id="resultTier">tier</div>
-        <div class="result-label" id="resultLabel">label</div>
-        <div class="result-score" id="resultScore">0/100</div>
-        <div class="result-key" id="resultKeyVal"></div>
-      </div>
-
-      <button class="btn-action btn-green" id="btnCopyKey" style="display:none;" onclick="copyKey()">📋 Copy Key</button>
+  <div id="userListModal">
+    <div class="user-list-box">
+      <h3 style="margin-bottom: 15px; font-family: 'Playfair Display'; color: var(--black);">Daftar User</h3>
+      <div id="userListContainer"></div>
+      <button class="btn-exec" style="margin-top: 20px; background: var(--pink); color: #fff;" onclick="document.getElementById('userListModal').style.display='none'">TUTUP</button>
     </div>
   </div>
 
-  <!-- HALAMAN: TES VALID KEY -->
-  <div class="main-page" id="page-valid">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">✅ Tes Valid Key <span class="badge">SERVER API</span></div>
-      <div class="panel-desc">Paste key yang sudah di-generate untuk mengecek keasliannya di database server.</div>
-
-      <div class="input-group">
-        <label>KEY YANG MAU DICEK</label>
-        <input type="text" id="validInput" class="input-brutal" placeholder="cth: NAMA-XXXX-XXXX-XXXX">
-      </div>
-
-      <button class="btn-action btn-cyan" onclick="checkValidKey()">✅ Cek Validitas</button>
-
-      <div class="output-box" id="validResult" style="background: #000; color: var(--green);"></div>
+  <div class="page" id="page-apiserver">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1>API Server</h1></div>
+    <div class="input-group"><label>Nama API</label><input type="text" id="apiNameInput" class="input-box" placeholder="my-api"></div>
+    <button class="btn-exec" style="background: var(--cyan);" id="btnCreateApi" onclick="createApiServer()">Generate API</button>
+    <div class="loading" id="apiLoading">> Sedang membuat API...</div>
+    <div class="result" id="apiResult" style="text-align: center;">
+      <div style="margin-bottom: 10px;">✅ API Server berhasil dibuat!</div>
+      <div id="apiLinkContainer" style="background: var(--black); color: var(--green); padding: 10px; word-break: break-all; margin-bottom: 10px; border-radius: 8px;"></div>
     </div>
   </div>
 
-  <!-- HALAMAN: SFL -->
-  <div class="main-page" id="page-sfl">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">🔗 SFL → MediaFire <span class="badge">BYPASS</span></div>
-      <div class="panel-desc">Tempel link Sfile (SFL). Tool akan ambil halaman dan cari link MediaFire di dalamnya.</div>
+  <div class="page" id="page-validapi">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1>Tes Valid API</h1></div>
+    <div class="input-group"><label>Masukkan URL API</label><input type="url" id="validApiInput" class="input-box" placeholder="https://..."></div>
+    <button class="btn-exec" style="background: var(--green);" id="btnCheckApi" onclick="checkApiValidity()">Cek Sekarang</button>
+    <div class="loading" id="apiValidLoading">> Menembak API...</div>
+    <div class="result" id="apiValidResult"></div>
+  </div>
 
-      <div class="input-group">
-        <label>LINK SFL</label>
-        <input type="url" id="sflInput" class="input-brutal" placeholder="https://sfile.co/xxxxx">
-      </div>
+  <div class="page" id="page-dana">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1>Fake DANA</h1></div>
+    <div class="input-group"><label>Nama Pengirim</label><input type="text" id="danaName" class="input-box" value="Budi"></div>
+    <div class="input-group"><label>Nominal</label><input type="number" id="danaAmount" class="input-box" value="1000000"></div>
+    <button class="btn-exec" style="background: var(--yellow);" onclick="sendDanaNotif()">Kirim Notif</button>
+  </div>
 
-      <button class="btn-action btn-orange" id="btnSfl" onclick="bypassSfl()">🔗 Bypass Sekarang</button>
+  <div class="page" id="page-tiktok">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1>TikTok Profile</h1></div>
+    <div class="input-group"><label>Username</label><input type="text" id="ttUser" class="input-box" placeholder="tiktok"></div>
+    <button class="btn-exec" style="background: var(--green);" onclick="checkTiktok()">Cari Profil</button>
+    <div class="loading" id="ttLoading">> Scraping Data...</div>
+    <div id="ttResult" class="result"></div>
+  </div>
 
-      <div class="output-box" id="sflResult" style="background: #000; color: var(--green);"></div>
-      <div class="log-text" id="sflLog"></div>
+  <div class="page" id="page-htmlweb">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1>HTML to Web</h1></div>
+    <div class="input-group"><label>Nama Web</label><input type="text" id="subName" class="input-box" placeholder="budi-keren"></div>
+    <div class="input-group"><label>Kode HTML</label><textarea id="subHtml" class="input-box" placeholder="<html>...</html>"></textarea></div>
+    <button class="btn-exec" style="background: var(--pink); color:#fff;" onclick="deployHtmlWeb()">🚀 Deploy Web</button>
+    <div class="loading" id="subLoading">> DEPLOY...</div>
+    <div class="result" id="subResult" style="text-align: center;">
+      <div style="margin-bottom: 10px;">✅ Web berhasil di deploy!</div>
+      <div id="subLinkContainer" style="background: var(--black); color: var(--green); padding: 10px; word-break: break-all; margin-bottom: 10px; border-radius: 8px;"></div>
+      <a id="subLinkBtn" href="#" target="_blank" class="btn-exec" style="background: var(--cyan); text-decoration: none;">BUKA WEB</a>
     </div>
   </div>
 
-  <!-- HALAMAN: SUBS2UNLOCK -->
-  <div class="main-page" id="page-subs">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">🔓 Subs2Unlock <span class="badge">BYPASS</span></div>
-      <div class="panel-desc">Bypass link Subs2Unlock untuk mendapatkan link asli.</div>
+  <div class="page" id="page-webcode">
+    <button class="btn-back" onclick="showPage('page-menu')">← Kembali</button>
+    <div class="app-header"><h1>Web to Code</h1></div>
+    <div class="input-group"><label>URL Website</label><input type="url" id="webUrl" class="input-box" placeholder="https://..."></div>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn-exec" style="background: var(--white); flex: 1;" id="btnGetCode" onclick="fetchWebCode()">Ambil Kode</button>
+      <button class="btn-exec" style="background: var(--yellow); flex: 1; display: none;" id="btnCopyCode" onclick="copyWebCode()">📋 Copy</button>
+    </div>
+    <div class="code-output" id="codeResult"></div>
+  </div>
 
-      <div class="input-group">
-        <label>LINK SUBS2UNLOCK</label>
-        <input type="url" id="subsInput" class="input-brutal" placeholder="https://subs2unlock.com/xxxxx">
-      </div>
+  <div class="page" id="page-setting">
+    <div class="app-header"><h1>Setting</h1></div>
+    <div style="display: flex; justify-content: space-between; align-items: center; background: var(--white); border: var(--border); padding: 15px; margin-bottom: 15px; border-radius: 12px;">
+      <span style="font-weight: 700; color: var(--text-color);">Mode Liquid Glass</span>
+      <label class="switch">
+        <input type="checkbox" id="glassModeToggle" onchange="toggleGlassMode()">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <button class="btn-exec" style="background: var(--pink); color: #fff;" onclick="doLogout()">LOG OUT</button>
+  </div>
 
-      <button class="btn-action btn-cyan" id="btnSubs" onclick="bypassSubs()">🔓 Bypass Subs</button>
-
-      <div class="output-box" id="subsResult" style="background: #000; color: var(--green);"></div>
-      <div class="log-text" id="subsLog"></div>
+  <div class="page" id="page-info">
+    <div class="app-header"><h1>Info App</h1></div>
+    <div style="background: var(--white); border: var(--border); padding: 20px; font-weight: 500; border-radius: 12px; line-height: 1.6; color: var(--text-color);">
+      <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; margin-bottom: 10px;">Z×ice lanz dulll (v5.3)</p>
+      <p>Dibuat oleh dulll yang paling kasep.</p>
     </div>
   </div>
 
-  <!-- HALAMAN: SETTING -->
-  <div class="main-page" id="page-setting">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">⚙️ Setting <span class="badge">SYS</span></div>
-      <div class="panel-desc">Pengaturan preferensi tools.</div>
-
-      <div class="input-group" style="flex-direction: row; align-items: center; justify-content: space-between;">
-        <label style="margin-bottom: 0;">Auto Copy Key</label>
-        <input type="checkbox" id="autoCopy" style="width: 20px; height: 20px; accent-color: var(--cyan); border: var(--border); cursor: pointer;">
-      </div>
-      
-      <div style="height: 3px; background: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 12px); margin: 4px 0;"></div>
-      
-      <button class="btn-action btn-orange" onclick="clearStorage()">🗑️ Clear Cache / Storage</button>
-    </div>
-  </div>
-
-  <!-- HALAMAN: INFO APP -->
-  <div class="main-page" id="page-info">
-    <div class="panel">
-      <button class="close-page-btn" onclick="openTool('menu')">×</button>
-      <div class="panel-title">ℹ️ Info App <span class="badge">ABOUT</span></div>
-      <div class="panel-desc">
-        <strong>Z×ice lanz dulll</strong> (v6.0)<br><br>
-        Aplikasi web utility untuk generate public key, bypass link SFL ke MediaFire, Subs2Unlock, dan tools pendukung lainnya.<br><br>
-        Full-Stack Serverless (Flask + Vercel + Turso DB).<br><br>
-        <em>Use wisely. Enjoy the genggong.</em>
-      </div>
-    </div>
+  <div class="bottom-nav">
+    <button class="nav-item active" id="nav-menu" onclick="showPage('page-menu')"><span class="nav-icon">📁</span> Menu</button>
+    <button class="nav-item" id="nav-setting" onclick="showPage('page-setting')"><span class="nav-icon">⚙️</span> Setting</button>
+    <button class="nav-item" id="nav-info" onclick="showPage('page-info')"><span class="nav-icon">ℹ️</span> Info</button>
   </div>
 
 </div>
 
-<!-- BOTTOM NAVIGATION (DOCK STYLE) -->
-<div class="bottom-nav">
-  <button class="nav-item active" data-tool="menu" onclick="openTool('menu')">
-    <div class="nav-icon">📁</div>
-    Menu
-  </button>
-  <button class="nav-item" data-tool="setting" onclick="openTool('setting')">
-    <div class="nav-icon">⚙️</div>
-    Setting
-  </button>
-  <button class="nav-item" data-tool="info" onclick="openTool('info')">
-    <div class="nav-icon">ℹ️</div>
-    Info
-  </button>
+<div class="popup-overlay" id="customPopup">
+  <div class="popup-box">
+    <div class="popup-title" id="popupTitle">SUKSES</div>
+    <div class="popup-msg" id="popupMsg">Pesan.</div>
+    <button class="popup-btn" onclick="closePopup()">TUTUP</button>
+  </div>
 </div>
-
-<div id="toastContainer"></div>
 
 <script>
-  let currentGeneratedKey = "";
-  let currentWebCode = "";
-  const SERVER_URL = ""; 
+  const SERVER_URL = "";
+  let isLoginMode = true;
+  let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+  let chatInterval;
 
-  // ==========================================
-  // FITUR: LOGIN & LOGOUT
-  // ==========================================
-  function doLogin() {
-    const user = document.getElementById('loginUser').value.trim();
-    const pass = document.getElementById('loginPass').value;
+  // === CEK SESSION & GLASS MODE PAS DIMUAT ===
+  window.onload = () => {
+    if(localStorage.getItem('glassMode') === 'true') {
+      document.body.classList.add('glass-mode');
+      document.getElementById('glassModeToggle').checked = true;
+    }
 
-    if (user === "dulll genggong" && pass === "dulll brengsek") {
-      document.getElementById('loginScreen').classList.add('hidden');
-      localStorage.setItem('dulll_login', 'true');
-      showToast("Login Berhasil! Selamat datang.", false);
+    if (currentUser) {
+      document.getElementById('authScreen').style.display = 'none';
+      document.getElementById('appMain').classList.add('show');
+      if(currentUser.is_admin) document.getElementById('btnAdminPage').style.display = 'flex';
+      initDashboard();
+      logVisit();
     } else {
-      showToast("Username / Password Salah!", true);
+      document.getElementById('authScreen').style.display = 'flex';
+    }
+  };
+
+  // === FUNGSI PEMUTAR AUDIO (DIPANGGIL PAS KLIK) ===
+  function playBackgroundAudio() {
+    const audio = document.getElementById('bgAudio');
+    if (audio) {
+      audio.volume = 0.5; // Volume 50%
+      // Paksa play seketika, tanpa nunggu await apapun
+      audio.play().catch(e => console.log("Browser blokir audio, butuh interaksi manual:", e));
+    }
+  }
+
+  // === AUTO LOGIN ADMIN ===
+  function loginAsAdmin() {
+    // Panggil audio TEPAT SAAT DIKLIK (sebelum proses apapun)
+    playBackgroundAudio();
+
+    currentUser = { username: 'admin', is_admin: true };
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('appMain').classList.add('show');
+    document.getElementById('btnAdminPage').style.display = 'flex';
+    
+    initDashboard();
+    logVisit();
+    showPopup("ADMIN MODE", "Otomatis masuk sebagai Admin!", false);
+  }
+
+  // === AUTH MODE (LOGIN / DAFTAR) ===
+  function toggleAuthMode() {
+    isLoginMode = !isLoginMode;
+    document.getElementById('authTitle').innerText = isLoginMode ? "Login" : "Daftar Akun";
+    document.getElementById('authBtn').innerText = isLoginMode ? "LOGIN" : "DAFTAR";
+    document.getElementById('authToggle').innerText = isLoginMode ? "Belum punya akun? Daftar" : "Udah punya akun? Login";
+  }
+
+  async function handleAuth() {
+    // Panggil audio TEPAT SAAT DIKLIK (sebelum fetch)
+    playBackgroundAudio();
+
+    const user = document.getElementById('authUser').value.trim();
+    const pass = document.getElementById('authPass').value;
+    if(!user || !pass) return showPopup("ERROR", "Isi semua data!", true);
+
+    const endpoint = isLoginMode ? '/api/login' : '/api/register';
+    const btn = document.getElementById('authBtn');
+    btn.disabled = true; btn.innerText = "Memproses...";
+
+    try {
+      const res = await fetch(`${SERVER_URL}${endpoint}`, {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ username: user, password: pass })
+      });
+      const data = await res.json();
+
+      if(data.status === 'success') {
+        if(isLoginMode) {
+          currentUser = { username: data.username, is_admin: data.is_admin };
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          document.getElementById('authScreen').style.display = 'none';
+          document.getElementById('appMain').classList.add('show');
+          if(currentUser.is_admin) document.getElementById('btnAdminPage').style.display = 'flex';
+          initDashboard();
+          logVisit();
+        } else {
+          showPopup("SUKSES", "Registrasi berhasil! Silakan Login.", false);
+          toggleAuthMode();
+        }
+      } else {
+        throw new Error(data.message);
+      }
+    } catch(e) {
+      showPopup("GAGAL", e.message, true);
+    } finally {
+      btn.disabled = false; btn.innerText = isLoginMode ? "LOGIN" : "DAFTAR";
     }
   }
 
   function doLogout() {
-    localStorage.removeItem('dulll_login');
-    document.getElementById('loginScreen').classList.remove('hidden');
-    document.getElementById('loginUser').value = '';
-    document.getElementById('loginPass').value = '';
-    openTool('menu'); 
-    showToast("Berhasil Log Out", false);
+    localStorage.removeItem('currentUser');
+    currentUser = null;
+    window.location.reload();
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('dulll_login') === 'true') {
-      document.getElementById('loginScreen').classList.add('hidden');
-    }
-  });
-
-  document.querySelectorAll('input, textarea').forEach(input => {
-    input.addEventListener('focus', () => {
-      setTimeout(() => {
-        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300);
-    });
-  });
-
-  function toggleSideMenu() {
-    document.getElementById('sideMenu').classList.toggle('active');
-    document.getElementById('sideOverlay').classList.toggle('active');
+  // === LOG VISIT (Ke Database) ===
+  function logVisit() {
+    if(!currentUser) return;
+    const ip = document.getElementById('ipAddress').innerText;
+    const dev = document.getElementById('deviceName').innerText;
+    fetch(`${SERVER_URL}/api/log_visit`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ username: currentUser.username, ip: ip, device: dev })
+    }).catch(e => console.log(e));
   }
 
-  function openTool(tool) {
-    if (document.getElementById('sideMenu').classList.contains('active')) {
-      toggleSideMenu();
-    }
-
-    document.querySelectorAll('.main-page').forEach(p => p.classList.remove('active'));
-    const targetPage = document.getElementById('page-' + tool);
-    if (targetPage) targetPage.classList.add('active');
+  // === NAVIGASI ===
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
     
-    document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
-    const targetBtn = document.querySelector(`.side-btn[data-tool="${tool}"]`);
-    if (targetBtn) targetBtn.classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if(pageId === 'page-menu') document.getElementById('nav-menu').classList.add('active');
+    if(pageId === 'page-setting') document.getElementById('nav-setting').classList.add('active');
+    if(pageId === 'page-info') document.getElementById('nav-info').classList.add('active');
+    
+    if(pageId === 'page-chat') {
+      chatInterval = setInterval(fetchChat, 3000);
+      fetchChat();
+    } else {
+      clearInterval(chatInterval);
+    }
 
-    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-    const targetNav = document.querySelector(`.nav-item[data-tool="${tool}"]`);
-    if (targetNav) targetNav.classList.add('active');
+    if(pageId === 'page-admin') {
+      loadAdminData();
+    }
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   }
 
-  function showToast(message, isError = false) {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = 'toast-notif' + (isError ? ' error' : '');
-    const icon = isError ? '❌' : '✅';
-    toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
-    container.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 10);
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 300);
-    }, 2500);
+  function showPopup(title, msg, isError = false) {
+    document.getElementById('popupTitle').innerText = title;
+    document.getElementById('popupMsg').innerText = msg;
+    document.getElementById('customPopup').classList.add('active');
+  }
+  function closePopup() { document.getElementById('customPopup').classList.remove('active'); }
+
+  // === DASHBOARD ===
+  function initDashboard() {
+    setInterval(() => { document.getElementById('liveClock').innerText = new Date().toLocaleTimeString('id-ID', { hour12: false }); }, 1000);
+    const ua = navigator.userAgent;
+    let dev = ua.includes("Android") ? "Android" : ua.includes("iPhone") ? "iOS" : ua.includes("Windows") ? "Windows" : "Mac";
+    document.getElementById('deviceName').innerText = dev;
+    fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => document.getElementById('ipAddress').innerText = data.ip).catch(() => document.getElementById('ipAddress').innerText = "Error");
   }
 
-  // ==========================================
-  // FITUR: WEB TO CODE (Tanpa Batas + Copy)
-  // ==========================================
-  function fetchWebCode() {
-    const url = document.getElementById('webUrl').value.trim();
-    const out = document.getElementById('webCodeResult');
-    const btn = document.getElementById('btnWeb2Code');
-    const btnCopy = document.getElementById('btnCopyWeb');
+  function toggleGlassMode() {
+    const isChecked = document.getElementById('glassModeToggle').checked;
+    if(isChecked) { document.body.classList.add('glass-mode'); localStorage.setItem('glassMode', 'true'); }
+    else { document.body.classList.remove('glass-mode'); localStorage.setItem('glassMode', 'false'); }
+  }
 
-    if (!url) return showToast("Masukkan URL dulu!", true);
-    if (!/^https?:\/\//i.test(url)) return showToast("URL harus diawali http:// atau https://", true);
+  // === CHAT & USERS ===
+  async function fetchChat() {
+    try {
+      const res = await fetch(`${SERVER_URL}/api/chat/messages`);
+      const data = await res.json();
+      if(data.status === 'success') {
+        const chatBox = document.getElementById('chatBox');
+        const isScrolledToBottom = chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop + 50;
+        chatBox.innerHTML = "";
+        data.messages.forEach(m => {
+          const isMine = (m.sender === currentUser.username);
+          const isSenderAdmin = (m.sender === 'admin');
+          const div = document.createElement('div');
+          div.className = `chat-bubble ${isMine ? 'mine' : ''} ${isSenderAdmin ? 'admin' : ''}`;
+          let adminTag = isSenderAdmin ? `<span class="badge-admin">ADMIN</span>` : '';
+          div.innerHTML = `<div class="chat-sender">${m.sender} ${adminTag}</div><div>${m.message}</div>`;
+          chatBox.appendChild(div);
+        });
+        if(isScrolledToBottom) chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    } catch(e) { console.log(e); }
+  }
 
-    btn.disabled = true;
-    btn.innerText = "MENGAMBIL...";
-    btnCopy.style.display = 'none';
-    out.classList.add('show');
-    out.innerText = "> Mengunduh source code dari: " + url + "...\n";
-
-    fetch(`${SERVER_URL}/api/web_to_code`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: url })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if(data.status === 'success') {
-          currentWebCode = data.html;
-          out.innerText = data.html;
-          btnCopy.style.display = 'block'; // Munculin tombol copy
-          showToast("Kode berhasil diambil!", false);
-        } else {
-          throw new Error(data.message);
-        }
-      })
-      .catch(err => {
-        out.innerText = "Gagal mengambil kode:\n" + err.message;
-        showToast("Gagal ambil kode", true);
-      })
-      .finally(() => {
-        btn.disabled = false;
-        btn.innerText = "🌐 Ambil Kode";
+  async function sendChat() {
+    const input = document.getElementById('chatInput');
+    const msg = input.value.trim();
+    if(!msg) return;
+    input.value = ""; 
+    try {
+      await fetch(`${SERVER_URL}/api/chat/send`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sender: currentUser.username, message: msg })
       });
+      fetchChat(); 
+    } catch(e) { showPopup("GAGAL", "Pesan gagal.", true); }
+  }
+
+  async function showUsers() {
+    const container = document.getElementById('userListContainer');
+    container.innerHTML = "Loading...";
+    document.getElementById('userListModal').style.display = 'flex';
+    try {
+      const res = await fetch(`${SERVER_URL}/api/chat/users`);
+      const data = await res.json();
+      if(data.status === 'success') {
+        container.innerHTML = data.users.map(u => {
+          let isUAdmin = (u.username === 'admin');
+          let tag = isUAdmin ? `<span style="color:red; font-size:10px;">(ADMIN)</span>` : '';
+          return `<div class="user-item"><span>${u.username}</span> ${tag}</div>`;
+        }).join('');
+      }
+    } catch(e) { container.innerHTML = "Gagal load user."; }
+  }
+
+  // === ADMIN PANEL ===
+  async function loadAdminData() {
+    const token = currentUser.username; 
+    
+    fetch(`${SERVER_URL}/api/admin/visits`, { headers: { 'Authorization': `Bearer ${token}` } })
+      .then(res => res.json()).then(data => {
+        if(data.status === 'success') {
+          const table = document.getElementById('adminVisitTable');
+          table.innerHTML = `<tr><th>User</th><th>IP</th><th>Device</th><th>Waktu</th></tr>`;
+          data.data.forEach(v => {
+            table.innerHTML += `<tr><td>${v.username}</td><td>${v.ip}</td><td>${v.device}</td><td>${v.time}</td></tr>`;
+          });
+        }
+      });
+
+    fetch(`${SERVER_URL}/api/admin/chats`, { headers: { 'Authorization': `Bearer ${token}` } })
+      .then(res => res.json()).then(data => {
+        if(data.status === 'success') {
+          const table = document.getElementById('adminChatTable');
+          table.innerHTML = `<tr><th>Pengirim</th><th>Pesan</th></tr>`;
+          data.data.forEach(c => {
+            table.innerHTML += `<tr><td>${c.sender}</td><td>${c.message}</td></tr>`;
+          });
+        }
+      });
+  }
+
+  // === FITUR LAINNYA ===
+  async function createApiServer() {
+    const apiName = document.getElementById('apiNameInput').value.trim();
+    if(!apiName) return showPopup("ERROR", "Isi nama API dulu!", true);
+    document.getElementById('btnCreateApi').disabled = true; document.getElementById('apiLoading').classList.add('show'); document.getElementById('apiResult').classList.remove('show');
+    try {
+      const res = await fetch(`${SERVER_URL}/api/create_server`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ api_name: apiName }) });
+      const data = await res.json();
+      if(data.status === 'success') {
+        document.getElementById('apiLinkContainer').innerText = `${window.location.origin}/api/public/${data.server_id}`;
+        document.getElementById('apiResult').classList.add('show');
+      } else { throw new Error(data.message); }
+    } catch(e) { showPopup("GAGAL", e.message, true); } 
+    finally { document.getElementById('btnCreateApi').disabled = false; document.getElementById('apiLoading').classList.remove('show'); }
+  }
+
+  async function checkApiValidity() {
+    const url = document.getElementById('validApiInput').value.trim();
+    const out = document.getElementById('apiValidResult');
+    if(!url) return showPopup("ERROR", "Masukkan URL API!", true);
+    document.getElementById('apiValidLoading').classList.add('show'); out.classList.remove('show');
+    try {
+      const res = await fetch(url);
+      if(res.ok) { out.innerHTML = `<div style="color: var(--green); font-weight: bold; font-size: 16px;">✅ API VALID</div>`; out.classList.add('show'); }
+      else { throw new Error(`Status HTTP: ${res.status}`); }
+    } catch (e) { out.innerHTML = `<div style="color: var(--pink); font-weight: bold; font-size: 16px;">❌ API MATI</div>`; out.classList.add('show'); } 
+    finally { document.getElementById('apiValidLoading').classList.remove('show'); }
+  }
+
+  async function deployHtmlWeb() {
+    const name = document.getElementById('subName').value.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    const html = document.getElementById('subHtml').value;
+    if(!name || !html) return showPopup("ERROR", "Isi nama dan kode HTML!", true);
+    document.getElementById('subResult').classList.remove('show'); document.getElementById('subLoading').classList.add('show');
+    try {
+      const res = await fetch(`${SERVER_URL}/api/deploy_web`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subdomain: name, html: html }) });
+      const data = await res.json();
+      if(data.status === 'success') {
+        document.getElementById('subLinkContainer').innerText = data.url;
+        document.getElementById('subLinkBtn').href = data.url;
+        document.getElementById('subResult').classList.add('show');
+      } else { throw new Error(data.message); }
+    } catch (e) { showPopup("GAGAL", e.message, true); } 
+    finally { document.getElementById('subLoading').classList.remove('show'); }
+  }
+
+  function sendDanaNotif() {
+    const name = document.getElementById('danaName').value;
+    const amount = parseInt(document.getElementById('danaAmount').value).toLocaleString('id-ID');
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        new Notification("DANA", { body: `Kamu menerima uang dari ${name} sebesar Rp ${amount}`, icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Dana_logo.svg/1200px-Dana_logo.svg.png" });
+        showPopup("SUKSES", "Notif DANA muncul!", false);
+      } else { showPopup("GAGAL", "Izinkan notifikasi!", true); }
+    });
+  }
+
+  async function checkTiktok() {
+    const username = document.getElementById('ttUser').value.replace('@', '');
+    if(!username) return showPopup("ERROR", "Masukkan username!", true);
+    const out = document.getElementById('ttResult');
+    out.classList.remove('show'); document.getElementById('ttLoading').classList.add('show');
+    try {
+      const res = await fetch(`https://www.tikwm.com/api/user/info?unique_id=${username}`);
+      const json = await res.json();
+      if (json.code === 0 && json.data) {
+        const user = json.data.user; const stats = json.data.stats;
+        out.innerHTML = `
+          <div style="text-align:center;">
+            <img src="${user.avatarLarger || user.avatarMedium}" style="width:80px; border-radius:50%; border:3px solid #000; margin-bottom:10px;">
+            <h3 style="font-size:16px; font-weight:800;">${user.nickname}</h3>
+            <p style="font-size:12px; font-weight:700; background:#000; color:#fff; display:inline-block; padding:2px 8px; margin-bottom:10px;">@${user.uniqueId}</p>
+            <div style="display:flex; justify-content:center; gap:10px; margin-bottom:10px;">
+              <div style="background:var(--cyan); padding:5px 10px; border:2px solid #000; color:#000;"><b>${stats.followerCount}</b><br>Followers</div>
+              <div style="background:var(--cyan); padding:5px 10px; border:2px solid #000; color:#000;"><b>${stats.followingCount}</b><br>Following</div>
+            </div>
+            <div style="background:var(--bg); padding:8px; border:2px solid #000; text-align:left; font-size:12px;">${user.signature || 'Tidak ada bio.'}</div>
+          </div>
+        `;
+        out.classList.add('show');
+      } else { showPopup("GAGAL", "Akun tidak ditemukan.", true); }
+    } catch (e) { showPopup("GAGAL", "Server TikTok error.", true); } 
+    finally { document.getElementById('ttLoading').classList.remove('show'); }
+  }
+
+  async function fetchWebCode() {
+    const url = document.getElementById('webUrl').value.trim();
+    const btn = document.getElementById('btnGetCode');
+    const btnCopy = document.getElementById('btnCopyCode');
+    const out = document.getElementById('codeResult');
+    if(!url) return showPopup("ERROR", "Masukkan URL!", true);
+    btn.disabled = true; out.classList.add('show'); out.innerText = "> Mengunduh...\n"; btnCopy.style.display = 'none';
+    try {
+      const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+      const res = await fetch(proxy);
+      const html = await res.text();
+      currentWebCode = html; out.innerText = html; btnCopy.style.display = 'block';
+    } catch (e) { out.innerText = "Gagal mengambil kode:\n" + e.message; } 
+    finally { btn.disabled = false; }
   }
 
   function copyWebCode() {
-    if (!currentWebCode) return showToast("Belum ada kode untuk dicopy.", true);
+    if(!currentWebCode) return;
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(currentWebCode)
-        .then(() => showToast("Kode berhasil di-copy!", false))
-        .catch(() => fallbackCopy(currentWebCode));
+      navigator.clipboard.writeText(currentWebCode).then(() => showPopup("SUKSES", "Kode di-copy!", false));
     } else {
-      fallbackCopy(currentWebCode);
-    }
-  }
-
-  // ==========================================
-  // FITUR: HTML TO WEB (Blob URL biar anti-stuck)
-  // ==========================================
-  function renderHtml() {
-    const code = document.getElementById('htmlInput').value;
-    const iframe = document.getElementById('htmlPreview');
-    
-    if(!code.trim()) return showToast("Kode HTML masih kosong!", true);
-
-    try {
-      const blob = new Blob([code], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      iframe.src = url;
-      showToast("Berhasil di-render!", false);
-    } catch (err) {
-      showToast("Gagal render: " + err.message, true);
-    }
-  }
-
-  // ==========================================
-  // DASHBOARD & KEYGEN
-  // ==========================================
-  function initDashboard() {
-    setInterval(() => {
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('id-ID', { hour12: false });
-      const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
-      document.getElementById('dashTime').innerText = `${timeStr} | ${dateStr}`;
-    }, 1000);
-
-    if (navigator.getBattery) {
-      navigator.getBattery().then(battery => {
-        function updateBattery() {
-          const level = Math.round(battery.level * 100);
-          const charging = battery.charging ? '⚡(Charging)' : '';
-          document.getElementById('dashBattery').innerText = `${level}% ${charging}`;
-        }
-        updateBattery();
-        battery.addEventListener('levelchange', updateBattery);
-        battery.addEventListener('chargingchange', updateBattery);
-      });
-    } else {
-      document.getElementById('dashBattery').innerText = "Tidak didukung";
-    }
-
-    fetch('https://api.ipify.org?format=json')
-      .then(res => res.json())
-      .then(data => document.getElementById('dashIP').innerText = data.ip)
-      .catch(() => document.getElementById('dashIP').innerText = "Gagal load IP");
-
-    const ua = navigator.userAgent;
-    let deviceName = "Unknown Device";
-    if (ua.indexOf("Android") > -1) {
-      const match = ua.match(/Android [\d.]+; (.*?)(?: Build|\))/);
-      deviceName = match && match[1] ? match[1] : "Android Device";
-    } else if (/iPhone|iPad|iPod/.test(ua)) {
-      deviceName = "Apple iPhone/iPad";
-    } else if (/Windows NT/.test(ua)) {
-      deviceName = "Windows PC";
-    } else if (/Macintosh/.test(ua)) {
-      deviceName = "MacBook / iMac";
-    } else if (/Linux/.test(ua)) {
-      deviceName = "Linux Device";
-    }
-    document.getElementById('dashDevice').innerText = deviceName;
-  }
-  document.addEventListener('DOMContentLoaded', initDashboard);
-
-  const RATINGS = [
-    { min: 0,  label: 'rujit ahk',       tier: 'jelek',         color: '#FF007F', text: '#fff' },
-    { min: 40, label: 'damn bro',        tier: 'aga mayan',     color: '#FF7A00', text: '#000' },
-    { min: 88, label: 'ajig naon iue',   tier: 'paling bagus',  color: '#00FF66', text: '#000' },
-  ];
-
-  function pickRating(score) {
-    let r = RATINGS[0];
-    for (const x of RATINGS) if (score >= x.min) r = x;
-    return r;
-  }
-
-  function scoreKey(prefix, blocks) {
-    const p = Math.min(prefix.length * 4, 25);
-    const u = new Set(blocks.join('')).size;      
-    const uScore = Math.min(u * 2, 40);
-    const l = Math.min(blocks.length * 10, 25);
-    const bonus = Math.random() * 10;
-    return Math.min(Math.round(p + uScore + l + bonus), 100);
-  }
-
-  function generateKey() {
-    const rawPrefix = document.getElementById('keyInput').value.trim().toUpperCase().replace(/\s+/g, '');
-    if (!rawPrefix) return showToast("Isi nama key dulu!", true);
-
-    const btn = document.getElementById('btnGenKey');
-    const card = document.getElementById('keyResult');
-    const btnCopy = document.getElementById('btnCopyKey');
-    const loading = document.getElementById('keyLoading');
-
-    btn.disabled = true;
-    btn.innerText = "MEMPROSES...";
-    card.classList.remove('show');
-    btnCopy.style.display = 'none';
-    loading.classList.add('show');
-
-    fetch(`${SERVER_URL}/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prefix: rawPrefix })
-    })
-    .then(res => res.json())
-    .then(data => {
-      loading.classList.remove('show');
-      if(data.status === 'success') {
-        const finalKey = data.key;
-        currentGeneratedKey = finalKey;
-
-        const score = scoreKey(rawPrefix, [finalKey.slice(-14, -10), finalKey.slice(-9, -5), finalKey.slice(-4)]);
-        const rating = pickRating(score);
-
-        document.getElementById('resultTier').innerText  = rating.tier;
-        document.getElementById('resultLabel').innerText = rating.label;
-        document.getElementById('resultLabel').style.color = rating.color;
-        document.getElementById('resultScore').innerText = score + '/100';
-        document.getElementById('resultKeyVal').innerText = finalKey;
-
-        card.style.background = rating.color;
-        card.style.color = rating.text;
-        card.classList.add('show');
-
-        btnCopy.style.display = 'block';
-        btn.disabled = false;
-        btn.innerText = "🔑 Generate Key";
-
-        const isAuto = document.getElementById('autoCopy')?.checked;
-        if(isAuto) copyKey();
-        else showToast("Key tersimpan di Server! Rating: " + rating.label, false);
-      } else {
-        throw new Error(data.message || "Gagal generate");
-      }
-    })
-    .catch(err => {
-      loading.classList.remove('show');
-      btn.disabled = false;
-      btn.innerText = "🔑 Generate Key";
-      showToast("Error Server: " + err.message, true);
-    });
-  }
-
-  function copyKey() {
-    if (!currentGeneratedKey) return showToast("Belum ada key.", true);
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(currentGeneratedKey)
-        .then(() => showToast("Key berhasil di-copy!", false))
-        .catch(() => fallbackCopy(currentGeneratedKey));
-    } else {
-      fallbackCopy(currentGeneratedKey);
-    }
-  }
-
-  function fallbackCopy(text) {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    textArea.style.position = "fixed";
-    textArea.style.left = "-999999px";
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand('copy');
-      showToast("Berhasil di-copy!", false);
-    } catch (err) {
-      showToast("Gagal copy.", true);
-    }
-    textArea.remove();
-  }
-
-  function checkValidKey() {
-    const input = document.getElementById('validInput').value.trim().toUpperCase();
-    const out = document.getElementById('validResult');
-    
-    if (!input) return showToast("Masukkan key untuk dicek!", true);
-    
-    out.classList.add('show');
-    out.innerHTML = `<span style="color: var(--cyan)">Menghubungi database server...</span>`;
-
-    fetch(`${SERVER_URL}/validate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key: input })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.valid) {
-        out.innerHTML = `<div style="color: var(--green); font-weight: bold; font-size: 16px; margin-bottom: 5px;">✅ KEY VALID</div>
-                         <span style="color: #fff;">Key terdaftar asli dari server Z×ice lanz dulll.</span>`;
-      } else {
-        out.innerHTML = `<div style="color: var(--pink); font-weight: bold; font-size: 16px; margin-bottom: 5px;">❌ KEY TIDAK VALID</div>
-                         <span style="color: #fff;">Key tidak ditemukan di database.</span>`;
-      }
-    })
-    .catch(err => {
-      out.innerHTML = `<span style="color: var(--pink)">Gagal konek ke server database.</span>`;
-    });
-  }
-
-  function clearStorage() {
-    localStorage.clear();
-    showToast("Cache & storage dibersihkan!", false);
-  }
-
-  // ==========================================
-  // FUNGSI BYPASS (SFL & SUBS)
-  // ==========================================
-  async function bypassSfl() {
-    const url = document.getElementById('sflInput').value.trim();
-    const btn = document.getElementById('btnSfl');
-    const out = document.getElementById('sflResult');
-    const log = document.getElementById('sflLog');
-
-    if (!url) return showToast("Masukkan link SFL!", true);
-
-    btn.disabled = true;
-    btn.innerText = "BYPASSING...";
-    out.classList.remove('show');
-    log.classList.add('show');
-    log.innerHTML = `> Menghubungi server SFL...`;
-
-    try {
-      const res = await fetch(`${SERVER_URL}/api/sfl_bypass`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url })
-      });
-      const data = await res.json();
-
-      log.innerHTML += `<br>> Menganalisis kode...`;
-
-      if (data.status === 'success') {
-        log.innerHTML += `<br>> [SUKSES] Link MediaFire ditemukan!`;
-        out.innerHTML = `
-          <div style="color: var(--green); font-weight: bold; margin-bottom: 8px;">✅ BYPASS BERHASIL</div>
-          <a href="${data.link}" target="_blank" rel="noopener" style="color: var(--cyan); word-break: break-all; text-decoration: underline;">${data.link}</a>
-        `;
-        out.classList.add('show');
-      } else {
-        throw new Error(data.message);
-      }
-    } catch (e) {
-      log.innerHTML += `<br>> [GAGAL] ${e.message}`;
-      out.innerHTML = `<span style="color: var(--pink)">Bypass gagal. Server target memblokir request atau link tidak valid.</span>`;
-      out.classList.add('show');
-    } finally {
-      btn.disabled = false;
-      btn.innerText = "🔗 Bypass Sekarang";
-    }
-  }
-
-  async function bypassSubs() {
-    const url = document.getElementById('subsInput').value.trim();
-    const btn = document.getElementById('btnSubs');
-    const out = document.getElementById('subsResult');
-    const log = document.getElementById('subsLog');
-
-    if (!url) return showToast("Masukkan link Subs2Unlock!", true);
-
-    btn.disabled = true;
-    btn.innerText = "BYPASSING...";
-    out.classList.remove('show');
-    log.classList.add('show');
-    log.innerHTML = `> Menghubungi server Subs2Unlock...`;
-
-    try {
-      const res = await fetch(`${SERVER_URL}/api/subs2unlock`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url })
-      });
-      const data = await res.json();
-
-      log.innerHTML += `<br>> Menganalisis kode...`;
-
-      if (data.status === 'success') {
-        log.innerHTML += `<br>> [SUKSES] Link ditemukan!`;
-        out.innerHTML = `
-          <div style="color: var(--green); font-weight: bold; margin-bottom: 8px;">✅ BYPASS BERHASIL</div>
-          <a href="${data.link}" target="_blank" rel="noopener" style="color: var(--cyan); word-break: break-all; text-decoration: underline;">${data.link}</a>
-        `;
-        out.classList.add('show');
-      } else {
-        throw new Error(data.message);
-      }
-    } catch (e) {
-      log.innerHTML += `<br>> [GAGAL] ${e.message}`;
-      out.innerHTML = `<span style="color: var(--pink)">Bypass gagal. Web target memblokir request.</span>`;
-      out.classList.add('show');
-    } finally {
-      btn.disabled = false;
-      btn.innerText = "🔓 Bypass Subs";
+      const t = document.createElement("textarea"); t.value = currentWebCode; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); showPopup("SUKSES", "Kode di-copy!", false); } catch (err) { showPopup("GAGAL", "Gagal copy.", true); }
+      t.remove();
     }
   }
 </script>
